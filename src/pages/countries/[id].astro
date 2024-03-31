@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from '../../components/MiniHeader.astro';
+import RelatedCountry from "../../layouts/RelatedCountry.astro";
+import '../../styles/index.css';
+
+export async function getStaticPaths() {
+    let res = await fetch('https://freetestapi.com/api/v1/countries');
+    let dest = await res.json();
+    const country = dest.map(d => ({
+        params: { id: d.id },
+        props: { country: d }
+    }))
+    return country
+}
+
+let { id } = Astro.params;
+let resp = await fetch(`https://freetestapi.com/api/v1/countries/${id}`);
+let country = await resp.json();
+
+---
+
+<BaseLayout pagetTitle={country.name}>
+    <MiniHeader />
+    <div class="w-full relative">
+        <img src={country.flag} alt={country.name} class="w-full featured-img"/>
+        <div class="featured-title">
+            <h1 class="text-4xl font-black mb-2">{country.name}</h1>
+            <h4 class="text-yellow-300 text-center mb--2">{country.capital}</h4>
+        </div>
+    </div>
+    <main class="w-3/4 my-4 mx-auto text-center">
+        <table class="border-collapse border border-gray-400 mx-auto" >
+            <tr>
+                <th class="border border-slate-300 p-3">Land Area</th>
+                <td class="border border-slate-300 p-3">{country.land_area} sq miles</td>
+            </tr>
+            <tr>
+                <th class="border border-slate-300 p-4">Density</th>
+                <td class="border border-slate-300 p-4">{country.density}</td>
+            </tr>
+            <tr>
+                <th class="border border-slate-300 p-3">Currency</th>
+                <td class="border border-slate-300 p-3">{country.currency}</td>
+            </tr>
+            <tr>
+                <th class="border border-slate-300 p-3">Population</th>
+                <td class="border border-slate-300 p-3">{country.population}</td>
+            </tr>
+        </table>
+    </main>
+
+    <RelatedCountry />
+</BaseLayout>

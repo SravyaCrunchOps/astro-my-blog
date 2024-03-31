@@ -1,0 +1,30 @@
+---
+const { posts, name } = Astro.props
+---
+
+<div class="w-2/3 mx-auto my-3">
+    <p class="flex justify-between items-center mb-4">
+        <span class="text-2xl text-indigo-600 text-left font-black border-btm capitalize">{name}</span>
+        <span class="text-red-600">
+            <a class="hover:underline" href={`/${name}`}>Read More -&gt;</a>
+        </span>            
+    </p>
+    <div class="grid grid-cols-3 gap-3">
+        {posts.map(post => (
+            <a href={`/${name}/${post.id}/`} class="hover:text-pink-600">
+                <article class="border-2 p-5">
+                    <h2 class="font-black text-2xl">
+                        {post.title}
+                    </h2>  
+                    <h2 class="font-medium text-gray-400 text-lg">
+                        By - {post.author}
+                    </h2>    
+                    <div class="flex text-md items-center">
+                        <span class="me-1">&#10084;</span>
+                        <span>{post.likes}</span>
+                    </div>    
+                </article>
+            </a>
+        ))}
+    </div>
+</div>    

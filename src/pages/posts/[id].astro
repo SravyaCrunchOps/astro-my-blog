@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from "../../components/MiniHeader.astro";
+import '../../styles/index.css';
+import RelatedPost from "../../layouts/RelatedPost.astro";
+
+export async function getStaticPaths() {
+    let resp = await fetch("https://freetestapi.com/api/v1/posts");
+    let posts = await resp.json();     
+    const fakepost = posts.map(p => ({
+        params: { id: p.id },
+        props: { post: p }
+    }));
+    console.log(fakepost);
+    return fakepost;
+}
+
+let { id } = Astro.params;
+let res = await fetch(`https://freetestapi.com/api/v1/posts/${id}`);
+let post = await res.json();
+
+---
+
+<BaseLayout pageTitle="FakePosts">
+    <MiniHeader />
+    <main class="w-3/4 my-4 mx-auto text-center">
+        <h1 class="text-4xl font-black mb-2">{post.title}</h1>
+        <h4 class="text-indigo-400 text-center mb--2">By - {post.author}</h4>
+        <div class="flex items-center justify-around mb-4">
+            <h5 class="mb-3">
+                Published on: 
+                <span class="text-gray-400"> {post.timestamp.slice(0, 10)}</span>
+            </h5>
+            <div class="flex text-md items-center">
+                <span class="me-1">Likes &#10084;</span>
+                <span>{post.likes}</span>
+            </div> 
+            <div class="flex text-md items-center">
+                Comments
+                <span class="text-gray-400"> ({post.comments.length})</span>
+            </div> 
+        </div>
+        <p class="text-lg mb-4">{post.content}</p>
+
+        <div class="text-left">
+            <p class="text-xl font-semibold mb-4">Comments: </p>
+            {post.comments.map(c => (
+                <div class="border-2 p-3 mb-4">
+                    <div class="flex items-center mb-2">
+                        <p class="avatar me-4"></p>
+                        <h3 class="font-mono tracking-wider">{c.author}</h3>                        
+                    </div>
+                    <p>{c.text}</p>
+                </div>
+            ))}
+        </div>
+    </main>
+    <RelatedPost />
+</BaseLayout>

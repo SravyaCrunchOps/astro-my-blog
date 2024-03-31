@@ -1,16 +1,91 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import IndexCard from "../components/IndexCard.astro";
+import TestimonialCard from "../components/TestimonialCard.astro";
+import "../styles/index.css";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout pageTitle="Ed-Tech">
+	<section id="hero" class="flex items-center justify-between w-full">
+		<div id="hero-content" class="w-1/2 p-14">
+			<h1 class="text-5xl font-black mb-5">Want to travel your dream destination ?</h1>
+			<h5 class="text-xl mb-10">Join our friendly community to visit your dream destinations with our crew.</h5>
+			<a href="/destinations" role="button" class="bg-indigo-600 text-white rounded-lg px-5 py-2 me-5 font-semibold hover:bg-indigo-700">
+				Visit your Destination
+			</a>
+		</div>
+		<img src="../../../assets/images/dubai.png" class="w-1/2 h-full object-cover" alt="hero-image" />
+	</section>
+
+	<!-- section-2 -->
+	<section class="text-center p-10 bg-color">
+		<h4 class="text-indigo-600 text-xl font-semibold">Know your destination?</h4>
+		<h1 class="text-3xl font-bold">Lets explore your dream country with our blog !</h1>
+		<div class="px-36 py-10 grid md:grid-cols-3 grid-cols-1 gap-4">
+			<IndexCard cardImage="dubai.png" cardTitle="Dubai"/>
+			<IndexCard cardImage="pizza.png" cardTitle="Bahamas"/>
+			<IndexCard cardImage="pizza.png" cardTitle="Austria"/>
+			<IndexCard cardImage="dubai.png" cardTitle="Canada"/>
+			<IndexCard cardImage="pizza.png" cardTitle="USA"/>
+			<IndexCard cardImage="dubai.png" cardTitle="Italy"/>
+		</div>
+		<a role="button" href="/courses" class="bg-violet-600 text-white rounded-lg px-5 py-2 me-5 font-semibold hover:bg-pink-700">
+			Explore all Sites
+		</a>
+	</section>
+
+	<!-- section-3 -->
+	<section class="text-center p-10">
+		<h4 class="text-indigo-600 text-xl mb-3 font-semibold">Our Blog</h4>
+		<h1 class="text-4xl font-bold">An all-in-one platform for content</h1>
+		<article class="px-36 py-10 grid md:grid-cols-2 grid-cols-2 gap-4 items-center">
+			<div class="text-left p-10">
+				<h3 class="text-2xl font-semibold mb-3">Travelling that accelerate your growth</h3>
+				<p class="text-lg mb-5">Our blog helps you prepare for travelling and excel to reach your dream destinations. 
+					Get advice from our tourists guide and crew at hundreds of hotel chains we had links to. 
+					Ask your questions and clarify your doubts with our tourist experts.
+				</p>
+				<a href="/destinations" class="text-lg text-violet-600 font-bold hover:text-pink-700">
+					View destinations →
+				</a>
+			</div>
+			<img src="../../assets/images/hotels.png" alt="pizza" class="" width="100%" />
+		</article>
+
+		<article class="px-36 py-10 grid md:grid-cols-2 grid-cols-2 gap-4 items-center">
+			<img src="../../assets/images/dubai.png" alt="pizza" height="50px"/>
+			<div class="text-left p-10">
+				<h3 class="text-2xl font-semibold mb-3">Travelling that accelerate your growth</h3>
+				<p class="text-lg mb-5">Our blog helps you prepare for travelling and excel to reach your dream destinations. 
+					Get advice from our tourists guide and crew at hundreds of hotel chains we had links to. 
+					Ask your questions and clarify your doubts with our tourist experts.
+				</p>
+				<a href="/" class="text-lg text-violet-600 font-bold hover:text-pink-700">
+					Visit our Experts →
+				</a>
+			</div>
+		</article>
+	</section>
+
+	<!-- section-3 -->
+	<section class="px-36 py-12 bg-black">
+		<h2 class="text-white font-bold text-2xl pb-6 mx-auto uppercase border-btm">Testimonial</h2>
+		<div class=" grid grid-cols-3 gap-4 mt-8">
+			<TestimonialCard customer_name="Samuel. J" designation="Software Engineer" feedback="lorem opsium content is written and nice to see them egvetgv ewrgwergw" />
+			<TestimonialCard customer_name="Samuel. J" designation="Software Engineer" feedback="lorem opsium content is written and nice to see them egvetgv ewrgwergw" />
+			<TestimonialCard customer_name="Samuel. J" designation="Software Engineer" feedback="lorem opsium content is written and nice to see them egvetgv ewrgwergw" />
+			<TestimonialCard customer_name="Samuel. J" designation="Software Engineer" feedback="lorem opsium content is written and nice to see them egvetgv ewrgwergw" />
+			<TestimonialCard customer_name="Samuel. J" designation="Software Engineer" feedback="lorem opsium content is written and nice to see them egvetgv ewrgwergw" />
+			<TestimonialCard customer_name="Samuel. J" designation="Software Engineer" feedback="lorem opsium content is written and nice to see them egvetgv ewrgwergw" />
+		</div>
+	</section>
+
+	<!-- section-3 -->
+	<section class="px-36 py-12 text-center">
+		<h3 class="text-3xl font-bold mb-8">Ready to start your journey ? </h3>
+		<a href="/signup" role="button" class="bg-indigo-600 text-white rounded-lg px-5 py-2 me-5 font-semibold hover:bg-indigo-700">
+			Signup
+		</a>
+	</section>
+
+</BaseLayout>

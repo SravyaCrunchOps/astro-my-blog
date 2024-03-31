@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from "../../components/MiniHeader.astro";
+import BlogCardPost from "../../components/BlogCardPost.astro";
+
+let res = await fetch("https://freetestapi.com/api/v1/posts");
+let fakePosts = await res.json();
+---
+
+<BaseLayout pageTitle="fakePosts">
+    <MiniHeader />
+    <BlogCardPost posts={fakePosts} name="fakePosts"/>
+</BaseLayout>

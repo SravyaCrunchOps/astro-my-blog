@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MiniHeader from "../components/MiniHeader.astro";
+import BlogCard from "../components/BlogCard.astro";
+import BlogCardPost from '../components/BlogCardPost.astro';
+import BlogCardCountry from "../components/BlogCardCountry.astro";
+import BlogCardDestination from "../components/BlogCardDestination.astro";
+import '../styles/index.css';
+
+let res = await fetch("https://norian.studio/wp-json/wp/v2/dinos?&_embed");
+let dino = await res.json();
+let dinos = dino.slice(0, 3);
+
+let res1 = await fetch("https://norian.studio/wp-json/wp/v2/premise?&_embed");
+let biome = await res1.json(); 
+let biomes = biome.slice(0, 3);
+
+let res2 = await fetch("https://freetestapi.com/api/v1/posts");
+let fakePost = await res2.json();
+let fakePosts = await fakePost.slice(0, 3);
+
+let res3 = await fetch("https://freetestapi.com/api/v1/countries");
+let countryPost = await res3.json();
+let countries = await countryPost.slice(0, 3);
+
+let res4 = await fetch("https://freetestapi.com/api/v1/destinations");
+let destinationPost = await res4.json();
+let destinations = await destinationPost.slice(0, 5);
+---
+
+<BaseLayout pageTitle="Blog - Ed-Tech">
+    <MiniHeader />
+    <main class="pt-5">
+        <div class="text-center mb-4">
+            <h1 class="text-4xl font-black my-4">Latest Blog Posts</h1>
+            <p class="text-xl">Read our latest blog posts and popular ones are - Product Management, Software developer etc...</p>
+        </div>
+
+        <BlogCard posts={dinos} name="dinos" />
+        <BlogCardDestination posts={destinations} name="destinations" />
+        <BlogCard posts={biomes} name="premise" />
+        <BlogCardCountry posts={countries} name="countries"/>
+        <BlogCardPost posts={fakePosts} name="posts"/>
+    </main>
+</BaseLayout>

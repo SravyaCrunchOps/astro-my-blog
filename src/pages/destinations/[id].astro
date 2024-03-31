@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from '../../components/MiniHeader.astro';
+import RelatedDestination from "../../layouts/RelatedDestination.astro";
+import '../../styles/index.css';
+
+export async function getStaticPaths() {
+    let res = await fetch('https://freetestapi.com/api/v1/destinations');
+    let dest = await res.json();
+    const destination = dest.map(d => ({
+        params: { id: d.id },
+        props: { destination: d }
+    }))
+    return destination
+}
+
+let { id } = Astro.params;
+let resp = await fetch(`https://freetestapi.com/api/v1/destinations/${id}`);
+let destination = await resp.json();
+
+---
+
+<BaseLayout pagetTitle={destination.name}>
+    <MiniHeader />
+    <div class="w-full relative">
+        <img src={destination.image} alt={destination.name} class="w-full featured-img"/>
+        <div class="featured-title">
+            <h1 class="text-4xl font-black mb-2">{destination.name}</h1>
+            <h4 class="text-yellow-300 text-center mb--2">{destination.country}, {destination.continent}</h4>
+        </div>
+    </div>
+    <main class="w-3/4 my-4 mx-auto text-center">
+        <p class="text-lg mb-4">{destination.description}</p>
+        <table class="border-collapse border border-gray-400 mx-auto" >
+            <tr>
+                <th class="border border-slate-300 p-3">Language</th>
+                <td class="border border-slate-300 p-3">{destination.language}</td>
+            </tr>
+            <tr>
+                <th class="border border-slate-300 p-4">Best Time To Visit</th>
+                <td class="border border-slate-300 p-4">{destination.best_time_to_visit}</td>
+            </tr>
+            <tr>
+                <th class="border border-slate-300 p-3">Currency</th>
+                <td class="border border-slate-300 p-3">{destination.currency}</td>
+            </tr>
+            <tr>
+                <th class="border border-slate-300 p-3">Population</th>
+                <td class="border border-slate-300 p-3">{destination.population}</td>
+            </tr>
+        </table>
+        <article class="grid grid-cols-3 gap-3 mb-3">
+            <div class="text-left">
+                <p class="text-xl font-semibold my-4 border-btm">Top Attractions</p>
+                <ol class="list-decimal">
+                    {destination.top_attractions.map(ta => (
+                        <li class="py-2">{ta}</li>
+                    ))}
+                </ol>
+            </div>
+            <div class="text-left">
+                <p class="text-xl font-semibold my-4 border-btm">Local Dishes</p>
+                <ol class="list-decimal">
+                    {destination.local_dishes.map(d => (
+                        <li class="py-2">{d}</li>
+                    ))}
+                </ol>
+            </div> 
+            <div class="text-left">
+                <p class="text-xl font-semibold my-4 border-btm">Activites ToDo</p>
+                <ol class="list-decimal">
+                    {destination.activities.map(act => (
+                        <li class="py-2">{act}</li>
+                    ))}
+                </ol>
+            </div>   
+        </article>
+        
+    </main>
+
+    <RelatedDestination />
+</BaseLayout>

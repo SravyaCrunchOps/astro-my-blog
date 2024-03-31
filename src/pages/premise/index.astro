@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from "../../components/MiniHeader.astro";
+import BlogCard from "../../components/BlogCard.astro";
+
+let res = await fetch("https://norian.studio/wp-json/wp/v2/premise?&_embed");
+let biomes = await res.json(); 
+
+---
+
+<BaseLayout pageTitle="Biomes">
+    <MiniHeader />
+    <BlogCard posts={biomes} name="premise"/>
+</BaseLayout>

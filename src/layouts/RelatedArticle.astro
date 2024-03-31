@@ -1,0 +1,27 @@
+---
+const pathname = Astro.url.pathname.split('/')[1];
+// console.log(pathname);
+
+let res = await fetch(`https://norian.studio/wp-json/wp/v2/${pathname}?&_embed`);
+let post = await res.json();
+let posts = post.slice(0, 3);
+
+---
+
+<div class="w-3/4 mx-auto mb-5">
+    <h3 class="text-2xl font-bold border-btm mb-4">Related Article</h3>
+    <div class="grid grid-cols-3 gap-3">
+        {posts.map(p => (
+            <a href={`/premise/${p.slug}`} class="border-2">
+                <img class="related-img"
+                    src={p._embedded ? p._embedded['wp:featuredmedia']['0'].media_details.sizes.medium.source_url 
+                    : "../../assets/images/pizza.png"} />
+                    <div class="p-4">
+                        <h3 class="font-mono text-indigo-600 uppercase">{pathname}</h3>
+                        <h3 class="text-2xl mb-1 font-bold">{p.title.rendered}</h3>
+                        <p class="text-gray-500 mb-4">{p.date.toString().slice(0,10)}</p>
+                    </div>
+            </a>
+        ))}
+    </div>
+</div>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import RelatedArticle from "../../layouts/RelatedArticle.astro";
+import MiniHeader from "../../components/MiniHeader.astro";
+import '../../styles/index.css';
+
+export async function getStaticPaths() {
+    let res = await fetch("https://norian.studio/wp-json/wp/v2/premise?&_embed");
+    let data = await res.json();
+    const premise = data.map(post => ({
+        params: {slug: post.slug},
+        props: {post: post}
+    }));
+    return premise;
+}
+
+const { slug } = Astro.params;
+
+let res = await fetch(`https://norian.studio/wp-json/wp/v2/premise?slug=${slug}&_embed`);
+let [biomes] = await res.json();
+
+---
+
+<BaseLayout pageTitle={biomes.title.rendered}>
+    <MiniHeader />
+    <main class="w-full">
+        <div class="w-3/4 mx-auto my-6">
+            <h2 set:html={biomes.title.rendered} class="text-4xl font-bold mb-6" />
+            <img class="mb-4" src={biomes._embedded ? biomes._embedded['wp:featuredmedia']['0'].media_details.sizes.medium.source_url : null} />
+            <Fragment set:html={biomes.content.rendered} set:class={"text-xl bg-slate-700"} />
+        </div>
+    </main>
+    <RelatedArticle urlSlug="premise"/>
+    
+</BaseLayout>

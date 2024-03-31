@@ -1,0 +1,12 @@
+---
+const { customer_name, designation, feedback } = Astro.props;
+---
+
+<div class="bg-white rounded-lg p-3 flex justify-around">
+    <img src="../../../assets/images/hotels.png"  class="rounded-full me-5 testimonial-image" alt={customer_name} />
+    <div class="text-left">
+        <h3 class="text-lg font-bold pb-0">{customer_name}</h3>
+        <h5 class="text-sm text-slate-400 font-medium pb-4">{designation}</h5>
+        <p>{feedback}</p>
+    </div>
+</div>

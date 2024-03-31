@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from "../../components/MiniHeader.astro";
+import BlogCard from "../../components/BlogCard.astro";
+
+let res = await fetch("https://norian.studio/wp-json/wp/v2/dinos?&_embed");
+let dinos = await res.json();
+---
+
+<BaseLayout pageTitle="Dinos">
+    <MiniHeader />
+    <BlogCard posts={dinos} name="dinos" />
+</BaseLayout>

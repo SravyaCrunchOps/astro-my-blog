@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from "../../components/MiniHeader.astro";
+import BlogCardCountry from '../../components/BlogCardCountry.astro';
+import '../../styles/index.css';
+
+let res = await fetch("https://freetestapi.com/api/v1/countries");
+let countries = await res.json();
+
+---
+
+<BaseLayout pageTitle="Destinations">
+    <MiniHeader />
+    <BlogCardCountry posts={countries} name="countries" />
+</BaseLayout>

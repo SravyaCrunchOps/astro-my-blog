@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MiniHeader from "../../components/MiniHeader.astro";
+import BlogCardDestination from '../../components/BlogCardDestination.astro';
+import '../../styles/index.css';
+
+let res = await fetch("https://freetestapi.com/api/v1/destinations");
+let destinations = await res.json();
+
+---
+
+<BaseLayout pageTitle="Destinations">
+    <MiniHeader />
+    <BlogCardDestination posts={destinations} name="destinations" />
+</BaseLayout>
